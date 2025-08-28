@@ -1,0 +1,28 @@
+<!-- blog/templates/blog/profile.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Профиль</title>
+  <style>
+    body { font-family: sans-serif; margin: 24px; }
+    .badge { display:inline-block; padding:6px 10px; border-radius:6px; }
+    .active { background:#e6ffed; border:1px solid #b7eec4; }
+    .blocked { background:#ffecec; border:1px solid #f1b4b4; }
+  </style>
+</head>
+<body>
+  <h1>Профиль пользователя</h1>
+
+  <p><strong>Имя:</strong> {{ username }}</p>
+  <p><strong>Email:</strong> {{ email }}</p>
+
+  {% if is_active %}
+    <p class="badge active">Аккаунт активен</p>
+  {% else %}
+    <p class="badge blocked">Аккаунт заблокирован</p>
+  {% endif %}
+
+  <p style="margin-top:16px;"><a href="{% url 'home' %}">На главную</a></p>
+</body>
+</html>

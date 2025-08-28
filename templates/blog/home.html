@@ -1,0 +1,77 @@
+<!-- blog/templates/blog/home.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Главная</title>
+  <style>
+    body { font-family: sans-serif; margin: 24px; }
+    form, table { margin-top: 16px; }
+    table { border-collapse: collapse; width: 420px; }
+    th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+    th { background: #f7f7f7; }
+    .ok { padding: 8px 10px; background:#e8fff0; border:1px solid #bfe8cd; display:inline-block; margin-top:12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Обратная связь</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label>Ваше имя:
+        <input type="text" name="name" required>
+      </label>
+    </div>
+    <div style="margin-top:8px;">
+      <label>Отзыв:
+        <textarea name="feedback" rows="4" cols="40" required></textarea>
+      </label>
+    </div>
+    <button type="submit" style="margin-top:8px;">Отправить</button>
+  </form>
+
+  {% if message %}
+    <div class="ok">{{ message }}</div>
+  {% endif %}
+
+  <hr>
+
+  <h2>Товары</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Цена, ₽</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in products %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>Оценка</h2>
+  <p>Ваш балл: <strong>{{ score }}</strong></p>
+  <p>
+    {% if score >= 90 %}
+      Отлично
+    {% elif score >= 70 %}
+      Хорошо
+    {% elif score >= 50 %}
+      Удовлетворительно
+    {% else %}
+      Неудовлетворительно
+    {% endif %}
+  </p>
+
+  <p><a href="{% url 'profile' %}">Перейти в профиль</a></p>
+</body>
+</html>
